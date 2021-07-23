@@ -1,0 +1,18 @@
+version: '3'
+services:
+  stardog:
+    image: stardog/stardog
+    volumes:
+    - ./stardog-license-key.bin:/var/opt/stardog/stardog-license-key.bin
+    - ./jars:/var/opt/stardog/jars
+    - ./tutorial-content/:/var/opt/stardog/tutorial-content/
+    - ./tutorial-content/stardog.properties:/var/opt/stardog/stardog.properties
+    ports:
+      - "5820:5820"
+      - "5806:5806"
+    env_file:
+      - stardog.env
+  postgresdb:
+    image: postgres
+    env_file:
+      - postgresdb.env # configure postgres
