@@ -1,0 +1,18 @@
+SELECT ?song ?name ?length {
+   GRAPH <virtual://music> {
+      ?song a :Song ;
+            :name ?name ;
+            :length ?length .
+
+   }
+}
+
+
+# SELECT ?member ?name {
+#    GRAPH <virtual://music> {
+#       ?band a :Band ;
+#             :name "The Beatles" .
+#       ?member :member ?band ;
+#             :name ?name .
+#    }
+# }

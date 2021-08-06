@@ -1,0 +1,40 @@
+@prefix : <http://stardog.com/tutorial/> .
+@prefix stardog: <tag:stardog:api:> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sql: <tag:stardog:api:sql:> .
+
+:ArtistTableMapping a sql:TableMapping ;
+    sql:tableName "Artist" ;
+    sql:class :Artist ;
+    sql:hasField [
+        sql:property :name ;
+        sql:fieldName "name" ;
+        sql:type xsd:string
+    ] .
+
+:SongwriterTableMapping a sql:TableMapping ;
+    sql:tableName "Songwriter";
+    sql:class :Songwriter .
+
+
+:SongTableMapping a sql:TableMapping ;
+    sql:tableName "Song" ;
+    sql:class :Song ;
+    sql:hasField [
+        sql:property :length ;
+        sql:fieldName "length" ;
+        sql:type xsd:integer
+    ],
+    [
+        sql:property :writer ;
+        sql:fieldName "writer" ;
+        sql:refersTo :SongwriterTableMapping
+    ],
+    [
+        sql:property :name ;
+        sql:fieldName "Song Title" ;
+        sql:type xsd:string
+    ] .
