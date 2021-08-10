@@ -28,7 +28,7 @@ function startdemo_fn {
 
     
     # Start core services
-    docker compose -p demo_stardog -f ./docker-compose.yml up -d
+    docker-compose -p demo_stardog -f ./docker-compose.yml up -d
 
     echo -e "Sleeping for 30 seconds to wait for services to start"
     sleep 30
