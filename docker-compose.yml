@@ -12,10 +12,6 @@ services:
       - "5806:5806"
     env_file:
       - stardog.env
-  postgresdb:
-    image: postgres
-    env_file:
-      - postgresdb.env # configure postgres
   mysqldb:
     image: mysql
     ports:

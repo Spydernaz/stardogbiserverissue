@@ -1,9 +1,0 @@
-prefix : <http://schema.org/>
-prefix spa: <tag:stardog:api:analytics:>
-
-SELECT ?error
-WHERE {
-    graph spa:model {
-        :c1 spa:evaluationScore ?error
-    }
-}
