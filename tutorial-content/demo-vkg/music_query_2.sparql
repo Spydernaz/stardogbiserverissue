@@ -3,10 +3,16 @@ SELECT ?song ?name ?length {
       ?song a :Song ;
             :name ?name ;
             :length ?length .
-
    }
 }
 
+# SELECT ?song ?name ?length {
+#    GRAPH <virtual://music> {
+#       ?song a :Song ;
+#             :name ?name ;
+#             :length ?length .
+#    }
+# }
 
 # SELECT ?member ?name {
 #    GRAPH <virtual://music> {

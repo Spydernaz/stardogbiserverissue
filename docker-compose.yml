@@ -16,3 +16,11 @@ services:
     image: postgres
     env_file:
       - postgresdb.env # configure postgres
+  mysqldb:
+    image: mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Password@123

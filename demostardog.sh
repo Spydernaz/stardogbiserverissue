@@ -58,15 +58,21 @@ function runsetup_fn {
 }
 
 function demo_1 {
-    echo -e "Setting up Demo 1"
+    tutorial_content="/var/opt/stardog/tutorial-content/demo-vkg"
+    echo -e "Setting up Demo 1 - Virtual Knowledge Graphs"
+    echo -e "Adding data to MySQL instance"
+    mysql -h 127.0.0.1 -P3306 -u root -pPassword@123 -e "CREATE DATABASE music;"
+    mysql -h 127.0.0.1 -P3306 -u root -pPassword@123 -D music < ./tutorial-content/demo-vkg/loaddata.sql
+
     docker exec -it demo_stardog_stardog_1 ${STARDOG_PATH}/stardog-admin db create -n music
     docker exec -it demo_stardog_stardog_1 ${STARDOG_PATH}/stardog namespace add --prefix "" --uri "http://stardog.com/tutorial/" music
-    docker exec -it demo_stardog_stardog_1 ${STARDOG_PATH}/stardog-admin data-source add /var/opt/stardog/tutorial-content/demo-vkg/music.properties /var/opt/stardog/tutorial-content/demo-vkg/music_sql-to-stardog_mappings.ttl
-    docker exec -it demo_stardog_stardog_1 ${STARDOG_PATH}/stardog-admin virtual add --name music --data-source music /var/opt/stardog/tutorial-content/demo-vkg/music_sql-to-stardog_mappings.ttl
+    docker exec -it demo_stardog_stardog_1 ${STARDOG_PATH}/stardog-admin data-source add ${tutorial_content}/music.properties ${tutorial_content}/music_sql-to-stardog_mappings.ttl
+    docker exec -it demo_stardog_stardog_1 ${STARDOG_PATH}/stardog-admin virtual add --name music --data-source music ${tutorial_content}/music_sql-to-stardog_mappings.ttl
 
+    tutorial_content="/var/opt/stardog/tutorial-content/biserver"
     echo -e "Ensuring there is a BI Mapping for music"
     docker exec -it demo_stardog_stardog_1 ${STARDOG_PATH}/stardog query execute music "clear graph <tag:stardog:api:sql:schema>"
-    docker exec -it demo_stardog_stardog_1 ${STARDOG_PATH}/stardog data add -g tag:stardog:api:sql:schema music /var/opt/stardog/tutorial-content/biserver/bimapping.ttl
+    docker exec -it demo_stardog_stardog_1 ${STARDOG_PATH}/stardog data add -g tag:stardog:api:sql:schema music ${tutorial_content}/bimapping.ttl
 
 }
 
